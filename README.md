@@ -50,6 +50,128 @@ type NotionNode = {
 };
 ```
 
+## Example
+
+- header block
+
+```json
+{
+  "type": "h1",
+  "children": [
+    {
+      "type": "text",
+      "text": "一级标题"
+    },
+    {
+      "type": "a",
+      "children": [
+        {
+          "type": "text",
+          "text": "链接"
+        }
+      ],
+      "href": "/a8c83cfad753461585db3f063c24c13d?pvs=25"
+    }
+  ]
+}
+```
+
+- paragraph block
+
+```json
+{
+  "type": "p",
+  "children": [
+    {
+      "type": "text",
+      "text": "这里是正文，"
+    },
+    {
+      "type": "a",
+      "children": [
+        {
+          "type": "text",
+          "text": "链接"
+        }
+      ],
+      "href": "http://www.baidu.com/"
+    },
+    {
+      "type": "text",
+      "text": "会生成脚注，重点请"
+    },
+    {
+      "type": "bold",
+      "children": [
+        {
+          "type": "text",
+          "text": "加粗，"
+        }
+      ]
+    },
+    {
+      "type": "italic",
+      "children": [
+        {
+          "type": "text",
+          "text": "斜体，"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "代码"
+    },
+    {
+      "type": "p",
+      "children": [
+        {
+          "type": "text",
+          "text": "缩进"
+        }
+      ]
+    }
+  ]
+}
+```
+
+- quote block
+
+```json
+{
+  "type": "quote",
+  "children": [
+    {
+      "type": "p",
+      "children": [
+        {
+          "type": "text",
+          "text": "这里是"
+        },
+        {
+          "type": "bold",
+          "children": [
+            {
+              "type": "text",
+              "text": "引用"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "children": [
+        {
+          "type": "text",
+          "text": "拖进去的"
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## Features and Advantages
 
 - Fast Parsing: Efficiently converts Notion pages into tree structures.

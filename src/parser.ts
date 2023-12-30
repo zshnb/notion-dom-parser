@@ -131,12 +131,14 @@ const parser = {
             text: children[0].text,
             children: [],
           };
-        } else {
+        } else if (style.indexOf('background-color') !== -1) {
           this.parseInlineCode(element, children);
           return {
             type: 'inlineCode',
             children,
           };
+        } else {
+          return this.parseText(element.children[0] as Text);
         }
       }
     }
@@ -297,7 +299,7 @@ const parser = {
       if (node.type === 'text') {
         children.push(this.parseText(node));
       } else {
-        children.push(this.doParse(node as Element));
+        this.parseBold(node as Element, children);
       }
     }
   },
@@ -570,6 +572,17 @@ const parser = {
   },
 
   parseColumnList(element: Element, children: NotionNode[]) {
+    if (
+      element.hasOwnProperty('attribs') &&
+      (element.attribs.class || '').indexOf('notion-column-block') !== -1
+    ) {
+      const columnBlock = {
+        type: 'columnBlock',
+        children: [],
+      };
+      children.push(columnBlock);
+      children = columnBlock.children;
+    }
     for (const c of element.children) {
       if (c.type === 'text') {
         children.push(this.parseText(c));
