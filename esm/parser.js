@@ -118,12 +118,15 @@ var parser = {
                         children: [],
                     };
                 }
-                else {
+                else if (style.indexOf('background-color') !== -1) {
                     this.parseInlineCode(element, children);
                     return {
                         type: 'inlineCode',
                         children: children,
                     };
+                }
+                else {
+                    return this.parseText(element.children[0]);
                 }
             }
         }
@@ -291,7 +294,7 @@ var parser = {
                 children.push(this.parseText(node));
             }
             else {
-                children.push(this.doParse(node));
+                this.parseBold(node, children);
             }
         }
     },
@@ -548,6 +551,15 @@ var parser = {
     },
     parseColumnList: function (element, children) {
         var _this = this;
+        if (element.hasOwnProperty('attribs') &&
+            (element.attribs.class || '').indexOf('notion-column-block') !== -1) {
+            var columnBlock = {
+                type: 'columnBlock',
+                children: [],
+            };
+            children.push(columnBlock);
+            children = columnBlock.children;
+        }
         for (var _i = 0, _a = element.children; _i < _a.length; _i++) {
             var c = _a[_i];
             if (c.type === 'text') {
