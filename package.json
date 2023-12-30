@@ -1,7 +1,7 @@
 {
   "name": "notion-dom-parser",
   "version": "1.0.0",
-  "description": "a Javascript module which can parse notion post page to tree structure ",
+  "description": "a Javascript module which can parse notion post page to tree structure",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
@@ -34,5 +34,8 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "html-dom-parser": "^5.0.6"
   }
 }
