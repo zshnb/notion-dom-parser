@@ -50,7 +50,6 @@ const parser = {
       this.mergeListItems(result, 'ol');
       this.mergeListItems(result, 'ul');
     }
-    console.log('result', result);
     return result;
   },
 
@@ -60,7 +59,7 @@ const parser = {
     }
     const classes = element.attribs.class;
     if (classes.indexOf('notion-header-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseHeader(element, children);
       return {
         type: 'h1',
@@ -68,7 +67,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-sub_header-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseHeader(element, children);
       return {
         type: 'h2',
@@ -76,7 +75,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-sub_sub_header-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseHeader(element, children);
       return {
         type: 'h3',
@@ -84,7 +83,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-text-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseTextBlock(element, children);
       return {
         type: 'p',
@@ -92,7 +91,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-link-token') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseLink(element, children);
       const href = element.attribs.href;
       return {
@@ -102,7 +101,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-bookmark-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseBookmark(element, children);
       return {
         type: 'bookmark',
@@ -111,7 +110,7 @@ const parser = {
     }
     if (classes.indexOf('notion-enable-hover') !== -1) {
       const style = element.attribs.style;
-      const children = [];
+      const children: NotionNode[] = [];
       if (style.indexOf('font-weight') !== -1) {
         this.parseBold(element, children);
         return {
@@ -142,7 +141,7 @@ const parser = {
       }
     }
     if (classes.indexOf('notion-quote-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseQuote(element, children);
       return {
         type: 'quote',
@@ -150,7 +149,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-callout-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseCalloutBlock(element, children);
       return {
         type: 'callout',
@@ -158,7 +157,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-code-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseCode(element, children);
       return {
         type: 'code',
@@ -169,7 +168,7 @@ const parser = {
       return this.parseDivider();
     }
     if (classes.indexOf('notion-bulleted_list-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       const ulLevel = params?.ulLevel === undefined ? 0 : params.ulLevel;
       const olLevel = params?.olLevel === undefined ? 0 : params.olLevel;
       this.parseList(element, children, ulLevel, olLevel, 'ul');
@@ -180,7 +179,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-numbered_list-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       const ulLevel = params?.ulLevel === undefined ? 0 : params.ulLevel;
       const olLevel = params?.olLevel === undefined ? 0 : params.olLevel;
       this.parseList(element, children, ulLevel, olLevel, 'ol');
@@ -191,7 +190,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-image-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseImageBlock(element, children);
       return {
         type: 'image',
@@ -199,7 +198,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-table-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseTable(element, children);
       return {
         type: 'table',
@@ -207,7 +206,7 @@ const parser = {
       };
     }
     if (classes.indexOf('notion-column_list-block') !== -1) {
-      const children = [];
+      const children: NotionNode[] = [];
       this.parseColumnList(element, children);
       return {
         type: 'columnList',
@@ -344,7 +343,10 @@ const parser = {
               .split(' ')
               .some((it) => this.notionBlockClasses.indexOf(it) !== -1)
           ) {
-            appendNonEmptyChildren(children, this.doParse.bind(this, c));
+            appendNonEmptyChildren(
+              children,
+              this.doParse.bind(this, c as Element),
+            );
           } else {
             this.parseQuote(c as Element, children);
           }
@@ -382,7 +384,10 @@ const parser = {
               .split(' ')
               .some((it) => this.notionBlockClasses.indexOf(it) !== -1)
           ) {
-            appendNonEmptyChildren(children, this.doParse.bind(this, c));
+            appendNonEmptyChildren(
+              children,
+              this.doParse.bind(this, c as Element),
+            );
           } else {
             this.parseCalloutBlock(c as Element, children);
           }
@@ -414,10 +419,10 @@ const parser = {
             }
           }
         } else {
-          this.parseCode(c, children);
+          this.parseCode(c as Element, children);
         }
       } else {
-        this.parseCode(c, children);
+        this.parseCode(c as Element, children);
       }
     }
   },
@@ -478,7 +483,7 @@ const parser = {
             }
             appendNonEmptyChildren(
               children,
-              this.doParse.bind(this, c, {
+              this.doParse.bind(this, c as Element, {
                 ulLevel: _ulLevel,
                 olLevel: _olLevel,
               }),
@@ -552,7 +557,7 @@ const parser = {
           ) {
             appendNonEmptyChildren(
               tdObject.children,
-              this.doParse.bind(this, c),
+              this.doParse.bind(this, c as Element),
             );
           } else {
             this.parseTd(c as Element, tdObject);
@@ -579,7 +584,10 @@ const parser = {
               .split(' ')
               .some((it) => this.notionBlockClasses.indexOf(it) !== -1)
           ) {
-            appendNonEmptyChildren(children, this.doParse.bind(this, c));
+            appendNonEmptyChildren(
+              children,
+              this.doParse.bind(this, c as Element),
+            );
           } else {
             this.parseColumnList(c as Element, children);
           }
