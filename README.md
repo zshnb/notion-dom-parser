@@ -1,6 +1,6 @@
 # Notion dom parser
 
-English / [中文](https://github.com/zshnb/notion-dom-parser/main/README.zh.md)
+English / [中文](https://github.com/zshnb/notion-dom-parser/blob/main/README.zh.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm version](https://badge.fury.io/js/notion-dom-parser.svg)](https://badge.fury.io/js/notion-dom-parser)
