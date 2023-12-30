@@ -61,4 +61,4 @@ type NotionNode = {
 
 ## 许可证
 
-本项目采用MIT许可证。有关详细信息，请查看LICENSE文件。
+本项目采用MIT许可证。有关详细信息，请查看[LICENSE](https://github.com/zshnb/notion-dom-parser/blob/main/LICENSE)文件。

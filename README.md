@@ -61,4 +61,4 @@ Contributions via GitHub pull requests are welcome. Please ensure you follow the
 
 ## License
 
-This project is licensed under the MIT. For more information, please see the LICENSE file.
+This project is licensed under the MIT. For more information, please see the [LICENSE](https://github.com/zshnb/notion-dom-parser/blob/main/LICENSE) file.
