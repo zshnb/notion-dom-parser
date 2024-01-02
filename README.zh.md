@@ -50,6 +50,22 @@ type NotionNode = {
 };
 ```
 
+支持类型:
+- h1
+- h2
+- h3
+- p
+- a
+- bold
+- italic
+- ul
+- ol
+- image
+- columnList
+- quote
+- callout
+- code
+
 ## 示例
 
 - header block
