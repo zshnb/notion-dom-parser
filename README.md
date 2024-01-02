@@ -49,6 +49,21 @@ type NotionNode = {
   ulLevel?: number; // only when type is 'ul', represent list's level in nest relation
 };
 ```
+Support types:
+- h1
+- h2
+- h3
+- p
+- a
+- bold
+- italic
+- ul
+- ol
+- image
+- columnList
+- quote
+- callout
+- code
 
 ## Example
 
